@@ -11,7 +11,8 @@ public class ConfigurationImpl implements Configuration {
   private Properties props;
 
   public ConfigurationImpl() throws IOException {
-    InputStream resourceAsStream = ConfigurationImpl.class.getClassLoader().getResourceAsStream("app.properties");
+    final InputStream resourceAsStream = ConfigurationImpl.class.getClassLoader().getResourceAsStream("app" +
+        ".properties");
     props = new Properties();
     props.load(resourceAsStream);
   }

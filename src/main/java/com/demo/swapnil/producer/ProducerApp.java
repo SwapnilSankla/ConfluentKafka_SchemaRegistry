@@ -13,8 +13,8 @@ import java.util.stream.IntStream;
 public class ProducerApp {
 
   public static void main(String[] args) throws IOException {
-    ConfigurationImpl configuration = new ConfigurationImpl();
-    ProducerHelper producerHelper = new ProducerHelper(configuration);
+    final ConfigurationImpl configuration = new ConfigurationImpl();
+    final ProducerHelper producerHelper = new ProducerHelper(configuration);
 
     IntStream.range(1, 101).forEach(i -> {
       Name name = new Name("Swapnil", "Prakash", "Sankla");

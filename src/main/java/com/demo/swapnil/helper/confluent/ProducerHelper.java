@@ -30,10 +30,10 @@ public class ProducerHelper {
   }
 
   public Future<RecordMetadata> send(Student userRecord, Callback callback) throws JsonMappingException {
-    GenericData.Record nameRecord = createNameRecord(userRecord);
-    GenericData.Record studentRecord = createStudentRecord(userRecord, nameRecord);
-    ProducerRecord<String, GenericData.Record> producerRecord = new ProducerRecord<>(topicName, studentRecord);
-    Future<RecordMetadata> future = kafkaProducer.send(producerRecord, callback);
+    final GenericData.Record nameRecord = createNameRecord(userRecord);
+    final GenericData.Record studentRecord = createStudentRecord(userRecord, nameRecord);
+    final ProducerRecord<String, GenericData.Record> producerRecord = new ProducerRecord<>(topicName, studentRecord);
+    final Future<RecordMetadata> future = kafkaProducer.send(producerRecord, callback);
     kafkaProducer.flush();
     return future;
   }
@@ -50,8 +50,8 @@ public class ProducerHelper {
 
   private GenericData.Record createStudentRecord(Student userRecord,
                                                  GenericData.Record nameRecord) throws JsonMappingException {
-    Schema studentSchema = getStudentSchema(userRecord);
-    GenericData.Record studentRecord = new GenericData.Record(studentSchema);
+    final Schema studentSchema = getStudentSchema(userRecord);
+    final GenericData.Record studentRecord = new GenericData.Record(studentSchema);
     studentRecord.put("id", userRecord.getId());
     studentRecord.put("name", nameRecord);
     studentRecord.put("score", userRecord.getScore());
@@ -60,8 +60,8 @@ public class ProducerHelper {
   }
 
   private GenericData.Record createNameRecord(Student userRecord) throws JsonMappingException {
-    Schema nameSchema = getNameSchema(userRecord);
-    GenericData.Record nameRecord = new GenericData.Record(nameSchema);
+    final Schema nameSchema = getNameSchema(userRecord);
+    final GenericData.Record nameRecord = new GenericData.Record(nameSchema);
     nameRecord.put("firstName", userRecord.getName().getFirstName());
     nameRecord.put("lastName", userRecord.getName().getLastName());
     nameRecord.put("middleName", userRecord.getName().getMiddleName());
@@ -69,12 +69,12 @@ public class ProducerHelper {
   }
 
   private Schema getNameSchema(Student userRecord) throws JsonMappingException {
-    String nameSchemaString = new ObjectToAvroSchemaMapperImpl().map(userRecord.getName());
+    final String nameSchemaString = new ObjectToAvroSchemaMapperImpl().map(userRecord.getName());
     return new Schema.Parser().parse(nameSchemaString);
   }
 
   private Schema getStudentSchema(Student userRecord) throws JsonMappingException {
-    String studentSchemaString = new ObjectToAvroSchemaMapperImpl().map(userRecord);
+    final String studentSchemaString = new ObjectToAvroSchemaMapperImpl().map(userRecord);
     return new Schema.Parser().parse(studentSchemaString);
   }
 }

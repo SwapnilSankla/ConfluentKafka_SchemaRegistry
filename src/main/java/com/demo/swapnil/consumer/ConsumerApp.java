@@ -11,9 +11,9 @@ import java.util.List;
 public class ConsumerApp {
   public static void main(String[] args)  {
     try {
-      ConsumerHelper consumerHelper = new ConsumerHelper(new ConfigurationImpl());
+      final ConsumerHelper consumerHelper = new ConsumerHelper(new ConfigurationImpl());
       while(true) {
-        List<Student> students = consumerHelper.receive();
+        final List<Student> students = consumerHelper.receive();
         students.stream().forEach(student -> log.info(student.toString()));
       }
     } catch (Exception e) {

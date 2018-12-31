@@ -15,7 +15,7 @@ public class HttpClientImpl implements HttpClient {
   }
 
   private Call buildPostRequest(final String url, final MediaType mediaType, final String content) {
-    OkHttpClient okHttpClient = new OkHttpClient();
+    final OkHttpClient okHttpClient = new OkHttpClient();
     return okHttpClient
         .newCall(
             new Request

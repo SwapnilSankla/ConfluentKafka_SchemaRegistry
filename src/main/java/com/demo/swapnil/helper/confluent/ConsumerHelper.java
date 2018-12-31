@@ -34,7 +34,7 @@ public class ConsumerHelper {
   public List<Student> receive() {
     List<Student> students = new ArrayList<>();
     for (int i=0; i<10; i++) {
-      ConsumerRecords<String, GenericData.Record> studentRecords = kafkaConsumer.poll(10);
+      final ConsumerRecords<String, GenericData.Record> studentRecords = kafkaConsumer.poll(10);
       studentRecords.forEach(record -> students.add(mapConsumerRecordToStudent(record)));
       if(studentRecords.count() > 0) {
         kafkaConsumer.commitSync();
@@ -58,13 +58,13 @@ public class ConsumerHelper {
   }
 
   private Student mapConsumerRecordToStudent(ConsumerRecord<String, GenericData.Record> record) {
-    int id = (Integer) record.value().get("id");
-    GenericData.Record name = (GenericData.Record)record.value().get("name");
-    String firstName = name.get("firstName").toString();
-    String middleName = name.get("middleName").toString();
-    String lastName = name.get("lastName").toString();
-    Integer score = (Integer) record.value().get("score");
-    String grade = record.value().get("grade").toString();
+    final int id = (Integer) record.value().get("id");
+    final GenericData.Record name = (GenericData.Record)record.value().get("name");
+    final String firstName = name.get("firstName").toString();
+    final String middleName = name.get("middleName").toString();
+    final String lastName = name.get("lastName").toString();
+    final Integer score = (Integer) record.value().get("score");
+    final String grade = record.value().get("grade").toString();
     return new Student(id,
         new Name(firstName, middleName, lastName),
         Optional.fromNullable(score),

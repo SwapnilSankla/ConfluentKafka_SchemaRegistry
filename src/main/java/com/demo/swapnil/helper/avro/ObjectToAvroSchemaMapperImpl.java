@@ -7,8 +7,8 @@ import com.fasterxml.jackson.dataformat.avro.AvroSchema;
 
 public class ObjectToAvroSchemaMapperImpl implements ObjectToAvroSchemaMapper {
   public String map(final Object object) throws JsonMappingException {
-    AvroMapper avroMapper = new AvroMapper(new AvroFactory());
-    AvroSchema avroSchema = avroMapper.schemaFor(object.getClass());
+    final AvroMapper avroMapper = new AvroMapper(new AvroFactory());
+    final AvroSchema avroSchema = avroMapper.schemaFor(object.getClass());
     return avroSchema.getAvroSchema().toString(true);
   }
 }
